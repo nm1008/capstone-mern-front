@@ -16,42 +16,42 @@ export default function Courses() {
   //GETTING ALL COURSES AND SETTING IT TO THE STATE
   useEffect(() => {
     fetch(`https://newback-simply-book.onrender.com/api/courses`)
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error(`HTTP error! Status: ${res.status}`);
-      }
-      return res.json();
-    })
-    .then((data) => setCourses(data))
-    .catch((error) => {
-      console.error('Error fetching courses:', error);
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! Status: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then((data) => setCourses(data))
+      .catch((error) => {
+        console.error("Error fetching courses:", error);
+      });
   }, []);
 
   //GETTING THE USERS INFORMATION AND SETTING IT TO THE STATE
   useEffect(() => {
     const id = localStorage.getItem("_id");
-    axios.get(`https://newback-simply-book.onrender.com/api/users/${id}`).then((res) => {
-      setUserEmail(res.data.email);
-      setIsAdmin(res.data.isAdmin);
-    });
+    axios
+      .get(`https://newback-simply-book.onrender.com/api/users/${id}`)
+      .then((res) => {
+        setUserEmail(res.data.email);
+        setIsAdmin(res.data.isAdmin);
+      });
   }, [isAdmin]);
 
   const handleEnrollCourse = (courseName) => {
     try {
-      fetch(
-        `https://newback-simply-book.onrender.com/api/users/enroll`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            email: userEmail,
-            name: courseName,
-          }),
-        }
-      )
+      fetch(`https://newback-simply-book.onrender.com/api/users/enroll`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          email: userEmail,
+          name: courseName,
+        }),
+      })
         .then((res) => {
           if (res.status === 201) {
             Swal.fire({
@@ -93,9 +93,12 @@ export default function Courses() {
 
     if (userConfirmed) {
       axios
-        .delete(`https://newback-simply-book.onrender.com/api/courses/${course._id}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        })
+        .delete(
+          `https://newback-simply-book.onrender.com/api/courses/${course._id}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        )
         .then((res) => {
           if (res.request.status === 200) {
             Swal.fire({
