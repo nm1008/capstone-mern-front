@@ -16,21 +16,18 @@ export default function AddCourse() {
   const handleAddCourse = (e) => {
     e.preventDefault();
     try {
-      fetch(
-        `https://newback-simply-book.onrender.com/api/courses`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            name: courseName,
-            price: price,
-            description: description,
-          }),
-        }
-      ).then((res) => {
+      fetch(`https://newback-simply-book.onrender.com/api/courses`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          name: courseName,
+          price: price,
+          description: description,
+        }),
+      }).then((res) => {
         if (res.ok) {
           Swal.fire({
             title: "Good job!",
