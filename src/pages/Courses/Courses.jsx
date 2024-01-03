@@ -15,9 +15,16 @@ export default function Courses() {
 
   //GETTING ALL COURSES AND SETTING IT TO THE STATE
   useEffect(() => {
-    fetch(`simply-book.vercel.app/api/courses`)
-      .then((res) => res.json())
-      .then((data) => setCourses(data));
+    fetch(`https://newback-simply-book.onrender.com/api/courses`)
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error(`HTTP error! Status: ${res.status}`);
+      }
+      return res.json();
+    })
+    .then((data) => setCourses(data))
+    .catch((error) => {
+      console.error('Error fetching courses:', error);
   }, []);
 
   //GETTING THE USERS INFORMATION AND SETTING IT TO THE STATE
