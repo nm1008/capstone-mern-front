@@ -86,7 +86,7 @@ export default function Courses() {
 
     if (userConfirmed) {
       axios
-        .delete(`http://localhost:3000/api/courses/${course._id}`, {
+        .delete(`https://newback-simply-book.onrender.com/api/courses/${course._id}`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => {

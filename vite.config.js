@@ -5,7 +5,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   server: {
     proxy: {
-      '/api': "https://newback-simply-book.onrender.com"
+      '/api': "https://capstone-mern-front.vercel.app/"
     }
   },
   plugins: [react()],
